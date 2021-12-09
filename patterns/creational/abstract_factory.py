@@ -32,12 +32,14 @@ Provides a way to encapsulate a group of individual factories.
 
 import random
 from typing import Type
+from abc import ABC, abstractmethod
 
 
-class Pet:
+class Pet(ABC):
     def __init__(self, name: str) -> None:
         self.name = name
 
+    @abstractmethod
     def speak(self) -> None:
         raise NotImplementedError
 
@@ -115,7 +117,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    random.seed(1234)  # for deterministic doctest outputs
-    import doctest
-
-    doctest.testmod()
+    cat_shop = PetShop(Cat)
+    pet = cat_shop.buy_pet("Lucy")
+    pet.speak()
